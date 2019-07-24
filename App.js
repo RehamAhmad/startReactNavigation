@@ -1,114 +1,56 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+/* React navigation */
+// -Installation  
+// npm install react-navigation
+// -Install react-native-gesture-handler   //With expo it's already included in the SDK you don't need to do anything
+// npm install react-native-gesture-handler
 
-import React, {Fragment} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+// -Next, we need to link it. The steps depends on your React Native version:
+// with react-native v6 its autolinking but still need more congiguration 
+// Link react-native link react-native-gesture-handler
+// at MainActivity.java add:
+// import com.facebook.react.ReactActivityDelegate;
+// import com.facebook.react.ReactRootView;
+// import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+// @Override
+// protected ReactActivityDelegate createReactActivityDelegate() {
+//   return new ReactActivityDelegate(this, getMainComponentName()) {
+//     @Override
+//     protected ReactRootView createRootView() {
+//      return new RNGestureHandlerEnabledRootView(MainActivity.this);
+//     }
+//   };
+// }
+// Finally, run react-native run-android or react-native run-ios to launch the app on your device/simulator.
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-const App = () => {
-  return (
-    <Fragment>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Fragment>
-  );
-};
+// Start..................
+// createStackNavigator  is a function that returns a React component. It takes a route configuration object
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
-export default App;
+
+
+// NOTICE :- react-navigation@3.x needs react-native-gesture-handler to work
+// React navigation lifecycle https://reactnavigation.org/docs/en/navigation-lifecycle.html
+
+
+
+
+
+import React from 'react'
+import { createStackNavigator, createAppContainer } from "react-navigation";
+import { HomeScreen } from "./HomeScreen";
+import { DetailsScreen } from "./DetailsScreen";
+
+
+
+const AppNavigator = createStackNavigator(
+  {
+    Home: HomeScreen,  // by default go to the first screen without initialScreenName
+    Details: DetailsScreen
+  },
+  {
+    initialRouteName:'Home'  // change the initial route
+  }
+
+);
+export default createAppContainer(AppNavigator);
