@@ -6,7 +6,10 @@
 
 // -Next, we need to link it. The steps depends on your React Native version:
 // with react-native v6 its autolinking but still need more congiguration 
-// Link react-native link react-native-gesture-handler
+// Link react-native link react-native-gesture-handler .................
+// ........... with react-native 6.0 and more react-native cli autolinking this library
+
+
 // at MainActivity.java add:
 // import com.facebook.react.ReactActivityDelegate;
 // import com.facebook.react.ReactRootView;
@@ -37,20 +40,46 @@
 
 
 import React from 'react'
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
 import { HomeScreen } from "./HomeScreen";
 import { DetailsScreen } from "./DetailsScreen";
+import { SettingsScreen } from './SettingsScreen';
+import { ProfileScreen } from './ProfileScreen';
 
 
+// there is no tabs...........
 
-const AppNavigator = createStackNavigator(
+// const AppNavigator = createStackNavigator(
+//   {
+//     Home: HomeScreen,  // by default go to the first screen without initialScreenName
+//     Details: DetailsScreen
+//   },
+//   {
+//     initialRouteName:'Home'  // change the initial route
+//   }
+// );
+
+// stack for Home tab
+const HomeNavigator = createStackNavigator(
   {
-    Home: HomeScreen,  // by default go to the first screen without initialScreenName
-    Details: DetailsScreen
+    Home: HomeScreen,
+    Details: DetailsScreen,
   },
-  {
-    initialRouteName:'Home'  // change the initial route
-  }
-
 );
-export default createAppContainer(AppNavigator);
+
+// stack for Settings tab
+const SettingsNavigator = createStackNavigator(
+  {
+    Settings: SettingsScreen,
+    Profile: ProfileScreen,
+  }
+);
+
+// tabs
+const tabNavigator = createBottomTabNavigator(
+  {
+    Home: HomeNavigator,
+    Settings: SettingsNavigator
+  }
+)
+export default createAppContainer(tabNavigator);
